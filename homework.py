@@ -25,7 +25,6 @@ logging.basicConfig(
     format='%(asctime)s, %(levelname)s, %(message)s, %(name)s',
     level=logging.DEBUG,
     filename='main.log',
-    filemode='w',
 )
 
 logger = logging.getLogger(__name__)
@@ -67,9 +66,9 @@ def send_message(bot, message):
     chat_id = TELEGRAM_CHAT_ID
     try:
         bot.send_message(chat_id, message)
-        logger.debug('Message was send successfuly!')
     except telegram.TelegramError as error:
         logger.error(f'Сообщение не отправлено: {error}')
+    logger.debug('Message was send successfuly!')
 
 
 def get_api_answer(timestamp):
@@ -93,30 +92,35 @@ def get_api_answer(timestamp):
 
 def check_response(response):
     """Проверяет ответ API на соответствие документации."""
+    msg = 'Ответ API не является словарем'
+    msg_2 = 'Отсустсвует ключ "homework_name" в ответ API'
+    msg_3 = 'Ответ API не является списком'
     if not isinstance(response, dict):
-        logger.error('Ответ API не является словарем')
-        raise TypeError('Ответ API не является словарем')
+        logger.error(msg)
+        raise TypeError(msg)
     if 'homeworks' not in response:
-        logger.error('Отсустсвует ключ "homework_name" в ответ API')
-        raise KeyError('Отсустсвует ключ "homework_name" в ответ API')
+        logger.error(msg_2)
+        raise KeyError(msg_2)
     response = response.get('homeworks')
     # response = response['homeworks']
 
     if not isinstance(response, list):
-        logger.error('Ответ API не является списком')
-        raise TypeError('Ответ API не является списком')
+        logger.error(msg_3)
+        raise TypeError(msg_3)
 
     return response
 
 
 def parse_status(homework):
     """Извлекает из информации о конкретной домашней работе."""
+    msg = 'Отсутствует ключ "homework_name" в ответе API'
+    msg_2 = 'Отсутствует ключ "status" в ответе API'
     if 'homework_name' not in homework:
-        logger.error('Отсутствует ключ "homework_name" в ответе API')
-        raise KeyError('Отсутствует ключ "homework_name" в ответе API')
+        logger.error(msg)
+        raise KeyError(msg)
     if 'status' not in homework:
-        logger.error('Отсутствует ключ "status" в ответе API')
-        raise KeyError('Отсутствует ключ "status" в ответе API')
+        logger.error(msg_2)
+        raise KeyError(msg_2)
     try:
         homework_name = homework.get('homework_name')
         status = homework.get('status')
