@@ -102,7 +102,6 @@ def check_response(response):
         logger.error(msg_2)
         raise KeyError(msg_2)
     response = response.get('homeworks')
-    # response = response['homeworks']
 
     if not isinstance(response, list):
         logger.error(msg_3)
