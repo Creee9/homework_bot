@@ -135,33 +135,6 @@ def parse_status(homework):
         logger.error(f'Передан неизвестный статус домашней работы: {error}')
     return f'Изменился статус проверки работы "{homework_name}". {verdict}'
 
-    # ЧИСТО ДЛЯ СЕБЯ! Мои неудачные попытки пройти Pytest)
-
-    # for status, verdict in HOMEWORK_VERDICTS.items():
-    #     homework_name = homework.get('homework_name')
-    #     if status == homework.get('status'):
-    #          return 'Изменился статус проверки '\
-    #                f'работы "{homework_name}". {verdict}'
-    #     else:
-    #        raise TypeError('Ошибка извлечения данных')
-
-    # homework_name = homework.get('homework_name')
-    # status = homework.get('status')
-    # verdict = HOMEWORK_VERDICTS[status]
-    # if status in HOMEWORK_VERDICTS.keys():
-    #     return (f'Изменился статус проверки работы '
-    #             f'"{homework_name}". {verdict}')
-    # else:
-    #     raise ValueError('Вы выйграли ааааафтамабиль!')
-
-    # if status in HOMEWORK_VERDICTS:
-    #    return 'Изменился статус проверки ' \
-    #           f'работы "{homework_name}". {verdict}'
-    # else:
-    #    message = f'Передан неизвестный статус домашней работы: {status}'
-    #    logger.error(message)
-    #    raise ParseStatusException(message)
-
 
 def main():
     """Основная логика работы бота."""
