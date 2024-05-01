@@ -5,10 +5,10 @@ import requests
 import time
 import telegram
 
-# from telegram.ext import Updater
 from dotenv import load_dotenv
 from logging import StreamHandler
 from exceptions import GetStatusException
+
 load_dotenv()
 
 
